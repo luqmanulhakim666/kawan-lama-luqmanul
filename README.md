@@ -1,75 +1,32 @@
 # Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Setup Frontend
 
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
 npm install
+touch .env
 
-# pnpm
-pnpm install
+## env variables
 
-# yarn
-yarn install
+VITE_API_URL = "http://localhost:5000/api"
 
-# bun
-bun install
-```
+## Run Project
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
 
-# pnpm
-pnpm dev
+## Setup API
 
-# yarn
-yarn dev
+cd api
+npm install
+npx prisma migrate dev --name init
 
-# bun
-bun run dev
-```
+touch .env
 
-## Production
+## env variables
 
-Build the application for production:
+DATABASE_URL="mysql://root:@localhost:3306/todo_app" // adjust the host
+JWT_SECRET="secret"
+PORT=5000
 
-```bash
-# npm
-npm run build
+## Run Project
 
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+npx ts-node src/server.ts
