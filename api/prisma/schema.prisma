@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String    @id @default(uuid()) // UUID for the primary key
+  email    String    @unique              // Unique email field
+  password String
+  name     String
+  todos    ToDo[]
+}
+
+model ToDo {
+  id          String  @id @default(uuid()) // UUID for the primary key
+  subject     String
+  description String?
+  status      String  @default("unmarked") // Consider changing this to ENUM for stricter status control
+  activityNo  String  @unique              // Unique activity number with "AC-" prefix, generated in code
+  userId      String
+  user        User    @relation(fields: [userId], references: [id])
+
+  @@map("todos")
+}
